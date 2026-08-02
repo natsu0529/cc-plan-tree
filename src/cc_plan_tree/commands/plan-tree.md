@@ -38,6 +38,6 @@ Follow these steps exactly:
    - Labels are concise (≤ 60 chars). Every concrete work item is a `step` with `"status": "pending"`.
    - Steps that implement a chosen option belong under that option node.
 
-3. **Show the tree.** Run `cc-plan-tree render .cc-plan-tree/plan.json --format mermaid` and include its output in a ```mermaid code block so the user sees the design tree. Then present the plan for approval as usual. If the `cc-plan-tree` command is not found, tell the user to run `pip install cc-plan-tree`.
+3. **Show the tree.** Run `cc-plan-tree render .cc-plan-tree/plan.json --format mermaid` and include its output in a ```mermaid code block so the user sees the design tree. Then present the plan for approval as usual. If the `cc-plan-tree` command is not found, retry with `uvx cc-plan-tree render ...`; if uv is also unavailable, tell the user to run `pip install cc-plan-tree`.
 
 4. **During implementation.** After approval, implement the plan. As you complete each step, update its `"status"` in `.cc-plan-tree/plan.json` (`"in_progress"` while working, `"done"` when finished). If the design changes mid-implementation, update the tree too — the tree must always reflect the actual design, because /plan-verify will check it against the code later.

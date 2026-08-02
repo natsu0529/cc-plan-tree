@@ -30,8 +30,15 @@ Plan mode produces walls of text. The design decisions — *"we considered local
 ## Install
 
 ```bash
-pip install cc-plan-tree     # or: uv tool install cc-plan-tree
+# with uv (recommended)
+uv tool install cc-plan-tree
 cc-plan-tree init            # installs the slash commands into ~/.claude/commands
+
+# or with pip
+pip install cc-plan-tree && cc-plan-tree init
+
+# or zero-install, one shot
+uvx cc-plan-tree init
 ```
 
 Use `cc-plan-tree init --project` to install into the current project's `.claude/commands` instead.
