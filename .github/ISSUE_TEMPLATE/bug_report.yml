@@ -1,0 +1,42 @@
+name: Bug report
+description: Something in cc-plan-tree doesn't work as expected
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report! Please **do not** use this form for security issues —
+        see [SECURITY.md](https://github.com/natsu0529/cc-plan-tree/blob/main/SECURITY.md).
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you expect, and what happened instead?
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Include the exact command you ran and, if possible, a minimal plan JSON.
+      render: shell
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: cc-plan-tree version
+      placeholder: "0.2.0"
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Python version and OS
+      placeholder: "Python 3.12 / macOS 15"
+    validations:
+      required: true
