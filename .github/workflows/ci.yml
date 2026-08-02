@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Fork PRs get a read-only token and no access to secrets.
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install .
+      - name: CLI smoke test
+        run: |
+          cc-plan-tree --help
+          cc-plan-tree render examples/sample-plan.json --format mermaid
+          cc-plan-tree render examples/sample-plan.json --format svg --out /tmp/plan-tree.svg
+          cc-plan-tree render examples/sample-plan.json --format html --out /tmp/plan-tree.html
+          cc-plan-tree render examples/sample-plan.json --format png --out /tmp/plan-tree.png
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install build twine
+      - run: python -m build
+      - run: python -m twine check dist/*

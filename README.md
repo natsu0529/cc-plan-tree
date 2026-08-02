@@ -98,7 +98,11 @@ See [examples/sample-plan.json](examples/sample-plan.json) for a full example.
 - [ ] Plan version diffing (what changed between plan v1 and what shipped)
 - [x] Interactive HTML view (`--format html`, v0.2)
 
+## Contributing
+
 Contributions welcome — the plan format is intentionally agent-agnostic, so adapters are a great first PR.
+
+Fork the repo, branch, and open a pull request against `main`; see [CONTRIBUTING.md](CONTRIBUTING.md) for setup and the review process. Security issues go through [private reporting](SECURITY.md), not public issues.
 
 ## License
 
