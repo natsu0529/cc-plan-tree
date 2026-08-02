@@ -26,8 +26,8 @@ h1 { font-size: 20px; margin-right: auto; }
 .legend span { display: inline-flex; align-items: center; gap: 5px; }
 .chip { width: 12px; height: 12px; border-radius: 3px; border: 1.5px solid; display: inline-block; }
 .chip.dashed { border-style: dashed; }
-.tree { overflow: auto; padding: 8px 4px 24px; }
-.tree ul { display: flex; justify-content: center; padding-top: 22px; position: relative; list-style: none; }
+.tree { overflow-x: auto; padding: 8px 4px 24px; }
+.tree ul { display: flex; padding-top: 22px; position: relative; list-style: none; }
 .tree li { display: flex; flex-direction: column; align-items: center; position: relative; padding: 22px 7px 0; }
 .tree li::before, .tree li::after {
   content: ''; position: absolute; top: 0; right: 50%;
@@ -43,7 +43,7 @@ h1 { font-size: 20px; margin-right: auto; }
   content: ''; position: absolute; top: 0; left: 50%;
   border-left: 1.5px solid #cbd5e1; height: 22px;
 }
-.tree > ul { padding-top: 0; }
+.tree > ul { padding-top: 0; width: max-content; margin: 0 auto; }
 .tree > ul > li { padding-top: 0; }
 .tree > ul > li::before, .tree > ul > li::after { display: none; }
 .node {
@@ -57,7 +57,8 @@ li.collapsed > ul { display: none; }
 .node[data-reason]:hover::after {
   content: attr(data-reason); position: absolute; left: 50%; transform: translateX(-50%);
   top: calc(100% + 7px); background: #0f172a; color: #f8fafc; font-size: 12px;
-  padding: 5px 10px; border-radius: 6px; white-space: nowrap; z-index: 10; pointer-events: none;
+  padding: 5px 10px; border-radius: 6px; width: max-content; max-width: 320px;
+  white-space: normal; z-index: 10; pointer-events: none;
 }
 footer { font-size: 12px; color: #94a3b8; }
 footer a { color: #64748b; }

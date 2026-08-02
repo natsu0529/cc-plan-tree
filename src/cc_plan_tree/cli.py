@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import re
 import sys
 from pathlib import Path
 
@@ -11,6 +12,36 @@ from .schema import PlanError, load_plan
 
 DEFAULT_PLAN = ".cc-plan-tree/plan.json"
 COMMAND_FILES = ["plan-tree.md", "plan-verify.md", "plan-export.md"]
+_VERSION_MARKER = re.compile(r"<!-- cc-plan-tree-version: (\S+) -->")
+
+
+def _stamp(content: str) -> str:
+    return content.rstrip() + f"\n\n<!-- cc-plan-tree-version: {__version__} -->\n"
+
+
+def _warn_if_commands_stale() -> None:
+    """Warn when installed slash commands were deployed by a different CLI version."""
+    candidates = [
+        (Path.cwd() / ".claude" / "commands", "cc-plan-tree init --project"),
+        (Path.home() / ".claude" / "commands", "cc-plan-tree init"),
+    ]
+    for directory, refresh_cmd in candidates:
+        md = directory / "plan-tree.md"
+        if not md.exists():
+            continue
+        try:
+            match = _VERSION_MARKER.search(md.read_text(encoding="utf-8"))
+        except OSError:
+            return
+        installed = match.group(1) if match else "an older version (no version marker)"
+        if not match or match.group(1) != __version__:
+            print(
+                f"warning: slash commands in {directory} were installed by "
+                f"{installed}, but this CLI is {__version__}. "
+                f"Run `{refresh_cmd}` to refresh them.",
+                file=sys.stderr,
+            )
+        return  # only check the dir Claude Code actually uses (project overrides user)
 
 
 def _bundled_commands_dir():
@@ -33,7 +64,7 @@ def cmd_init(args: argparse.Namespace) -> int:
     for name in COMMAND_FILES:
         content = (src_dir / name).read_text(encoding="utf-8")
         dest = target / name
-        dest.write_text(content, encoding="utf-8")
+        dest.write_text(_stamp(content), encoding="utf-8")
         installed.append(dest)
 
     print(f"Installed Claude Code slash commands for {scope}:")
@@ -44,6 +75,7 @@ def cmd_init(args: argparse.Namespace) -> int:
 
 
 def cmd_render(args: argparse.Namespace) -> int:
+    _warn_if_commands_stale()
     try:
         plan = load_plan(args.plan)
     except PlanError as exc:

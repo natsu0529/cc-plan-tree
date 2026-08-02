@@ -9,7 +9,7 @@ Follow these steps exactly:
 
 1. **Explore & clarify.** Investigate the relevant code first. When a real design decision arises (approach A vs B, library choice, scope trade-off), ask the user with the AskUserQuestion tool. Every question you ask MUST later appear in the tree as a `decision` node whose children are `option` nodes — mark the selected one `"chosen": true` and the others `"chosen": false` (add a short `"reason"` for rejected options).
 
-2. **Write the plan tree.** Create `.cc-plan-tree/plan.json` in the project root with this schema:
+2. **Write the plan tree.** Create `.cc-plan-tree/plan.json` in the project root. If the file already exists from a previous plan, Read it first (the Write tool refuses to overwrite unread files), then overwrite it. Schema:
 
    ```json
    {
