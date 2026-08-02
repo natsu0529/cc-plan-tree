@@ -2,7 +2,7 @@
 
 **Turn Claude Code's plan mode into a visual design tree** — see every design decision (including the options you *didn't* take), verify the finished code still matches the design, and embed the tree right in your pull request.
 
-<!-- TODO: demo GIF here -->
+![cc-plan-tree interactive design tree demo](docs/demo.gif)
 
 ```mermaid
 flowchart TD
