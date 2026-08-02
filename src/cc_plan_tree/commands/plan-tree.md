@@ -38,6 +38,10 @@ Follow these steps exactly:
    - Labels are concise (≤ 60 chars). Every concrete work item is a `step` with `"status": "pending"`.
    - Steps that implement a chosen option belong under that option node.
 
-3. **Show the tree.** Run `cc-plan-tree render .cc-plan-tree/plan.json --format mermaid` and include its output in a ```mermaid code block so the user sees the design tree. Then present the plan for approval as usual. If the `cc-plan-tree` command is not found, retry with `uvx cc-plan-tree render ...`; if uv is also unavailable, tell the user to run `pip install cc-plan-tree`.
+3. **Show the tree.** The chat cannot render diagrams, so open the interactive view for the user:
+   - Run `cc-plan-tree render .cc-plan-tree/plan.json --format html --out .cc-plan-tree/plan.html`, then open it with `open .cc-plan-tree/plan.html` (macOS) or `xdg-open .cc-plan-tree/plan.html` (Linux). This interactive tree (collapsible nodes, rejected options with reasons on hover) is what the user reviews.
+   - Also run `cc-plan-tree render .cc-plan-tree/plan.json --format mermaid` and include the output in a ```mermaid code block as a text record (it renders as a diagram on GitHub).
+
+   Then present the plan for approval as usual. If the `cc-plan-tree` command is not found, retry with `uvx cc-plan-tree render ...`; if uv is also unavailable, tell the user to run `pip install cc-plan-tree`.
 
 4. **During implementation.** After approval, implement the plan. As you complete each step, update its `"status"` in `.cc-plan-tree/plan.json` (`"in_progress"` while working, `"done"` when finished). If the design changes mid-implementation, update the tree too — the tree must always reflect the actual design, because /plan-verify will check it against the code later.

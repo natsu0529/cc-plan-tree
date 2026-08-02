@@ -64,7 +64,7 @@ Inside Claude Code:
 
 | Command | What it does |
 |---|---|
-| `/plan-tree <task>` | Plans the task. Clarifying questions become **decision nodes** (rejected options stay visible, greyed out). The plan is saved to `.cc-plan-tree/plan.json` and shown as a Mermaid tree. Approve it and implementation starts; step statuses update as work completes. |
+| `/plan-tree <task>` | Plans the task. Clarifying questions become **decision nodes** (rejected options stay visible, greyed out). The plan is saved to `.cc-plan-tree/plan.json` and opened as an **interactive HTML tree** (collapsible nodes, hover a rejected option to see why). Approve it and implementation starts; step statuses update as work completes. |
 | `/plan-verify` | Diffs the branch against the design tree. Reports ✅ matches / ⚠️ diverges / ❌ missing per node. On divergence you choose: fix the code, or fix the tree. When consistent, it offers to embed the tree into the PR body via `gh` (with your confirmation). |
 | `/plan-export [path]` | Renders the tree to PNG (default `./plan-tree.png`). No headless browser — pure Pillow. |
 
@@ -72,6 +72,7 @@ The CLI also works standalone:
 
 ```bash
 cc-plan-tree render .cc-plan-tree/plan.json --format mermaid   # stdout
+cc-plan-tree render --format html --out design.html            # interactive, self-contained
 cc-plan-tree render --format svg --out design.svg
 cc-plan-tree render --format png --out design.png
 ```
@@ -95,7 +96,7 @@ See [examples/sample-plan.json](examples/sample-plan.json) for a full example.
 
 - [ ] Adapters for other coding agents (Codex CLI, Gemini CLI) via the shared plan format
 - [ ] Plan version diffing (what changed between plan v1 and what shipped)
-- [ ] Interactive HTML view
+- [x] Interactive HTML view (`--format html`, v0.2)
 
 Contributions welcome — the plan format is intentionally agent-agnostic, so adapters are a great first PR.
 

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cc-plan-tree"
-version = "0.1.1"
+version = "0.2.0"
 description = "Turn Claude Code plan mode into a visual design tree - verify it against your code and embed it in PRs."
 readme = "README.md"
 license = { text = "MIT" }

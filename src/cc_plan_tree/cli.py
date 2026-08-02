@@ -71,6 +71,13 @@ def cmd_render(args: argparse.Namespace) -> int:
 
         out = render_png(plan, args.out or "plan-tree.png")
         print(out)
+    elif args.format == "html":
+        from .render_html import render_html
+
+        out = Path(args.out or "plan-tree.html")
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(render_html(plan), encoding="utf-8")
+        print(out)
     return 0
 
 
@@ -92,7 +99,7 @@ def main(argv=None) -> int:
 
     p_render = sub.add_parser("render", help="render a plan tree to mermaid, svg or png")
     p_render.add_argument("plan", nargs="?", default=DEFAULT_PLAN, help=f"plan JSON path (default: {DEFAULT_PLAN})")
-    p_render.add_argument("--format", choices=["mermaid", "svg", "png"], default="mermaid")
+    p_render.add_argument("--format", choices=["mermaid", "svg", "png", "html"], default="mermaid")
     p_render.add_argument("--out", help="output path (mermaid defaults to stdout)")
     p_render.set_defaults(func=cmd_render)
 
