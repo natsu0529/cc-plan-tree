@@ -43,6 +43,14 @@ uvx cc-plan-tree init
 
 Use `cc-plan-tree init --project` to install into the current project's `.claude/commands` instead.
 
+### Upgrading
+
+`init` copies the slash commands into `.claude/commands`, so after upgrading the package, re-run `init` to refresh them:
+
+```bash
+uv tool upgrade cc-plan-tree && cc-plan-tree init   # pip: pip install -U cc-plan-tree
+```
+
 From source:
 
 ```bash
