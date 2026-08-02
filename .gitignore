@@ -10,3 +10,24 @@ venv/
 plan-tree.png
 plan-tree.svg
 .DS_Store
+
+# Environments
+.env
+.env.*
+!.env.example
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Tool caches
+.ruff_cache/
+.mypy_cache/
+
+# Coverage
+.coverage
+htmlcov/
+
+# Claude Code local settings
+.claude/settings.local.json
