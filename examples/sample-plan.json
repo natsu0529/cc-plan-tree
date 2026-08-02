@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "title": "Add JWT authentication to the API",
+  "root": {
+    "id": "root",
+    "type": "goal",
+    "label": "Add JWT authentication",
+    "children": [
+      {
+        "id": "d_storage",
+        "type": "decision",
+        "label": "Where to store the refresh token?",
+        "children": [
+          {
+            "id": "o_cookie",
+            "type": "option",
+            "label": "HttpOnly cookie",
+            "chosen": true,
+            "children": [
+              { "id": "s_cookie", "type": "step", "label": "Set cookie flags (Secure, SameSite)", "status": "done" }
+            ]
+          },
+          {
+            "id": "o_local",
+            "type": "option",
+            "label": "localStorage",
+            "chosen": false,
+            "reason": "XSS risk"
+          }
+        ]
+      },
+      {
+        "id": "p_backend",
+        "type": "phase",
+        "label": "Backend",
+        "children": [
+          { "id": "s_middleware", "type": "step", "label": "Auth middleware verifying JWT", "status": "done" },
+          { "id": "s_endpoints", "type": "step", "label": "POST /login and /refresh endpoints", "status": "in_progress" }
+        ]
+      },
+      {
+        "id": "p_tests",
+        "type": "phase",
+        "label": "Tests",
+        "children": [
+          { "id": "s_tests", "type": "step", "label": "Integration tests for auth flow", "status": "pending" }
+        ]
+      }
+    ]
+  }
+}

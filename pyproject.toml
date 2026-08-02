@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cc-plan-tree"
+version = "0.1.0"
+description = "Turn Claude Code plan mode into a visual design tree - verify it against your code and embed it in PRs."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "natsu0529" }]
+requires-python = ">=3.9"
+dependencies = ["pillow>=10.0"]
+keywords = ["claude-code", "planning", "visualization", "mermaid", "ai-agents", "design-tree"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Documentation",
+]
+
+[project.urls]
+Homepage = "https://github.com/natsu0529/cc-plan-tree"
+Issues = "https://github.com/natsu0529/cc-plan-tree/issues"
+
+[project.scripts]
+cc-plan-tree = "cc_plan_tree.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+cc_plan_tree = ["commands/*.md"]
